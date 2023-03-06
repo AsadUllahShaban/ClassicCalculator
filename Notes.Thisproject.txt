@@ -6,3 +6,6 @@ responsive app
 android>app>src>main>AndroidManifest.xml
 In AndroidManifest.xml under <activity
 android:screenOrientation="potrait/landscape"
+
+
+squareroot instead of modulo

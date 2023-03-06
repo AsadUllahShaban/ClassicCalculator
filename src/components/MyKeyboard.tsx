@@ -9,6 +9,7 @@ export default function MyKeyboard() {
     const [firstNumber, setFirstNumber] = useState("")
     const [secondNumber, setSecondNumber] = useState("")
     const [operation, setOperation] = useState("")
+    const [dotPressed, setDotPressed] = useState(false)
     const [result, setResult] = useState<Number | null>(null)
 
     //this func will handle press for first 10 numbers pressed
@@ -18,8 +19,16 @@ export default function MyKeyboard() {
         }
     }
 
+    const handleDotPress = () => {
+        if (!dotPressed) {
+            setDotPressed(true);
+            setFirstNumber(firstNumber + '.')
+        }
+    }
+
     //this func will handle press for any operator pressed
     const handleOperationPress = (buttonValue: string) => {
+        setDotPressed(false);
         setOperation(buttonValue)
         setSecondNumber(firstNumber)
         setFirstNumber('')
@@ -27,6 +36,7 @@ export default function MyKeyboard() {
 
     //clearing all states when clear is pressed
     const clear = () => {
+        setDotPressed(false)
         setOperation('')
         setSecondNumber('')
         setFirstNumber('')
@@ -38,7 +48,7 @@ export default function MyKeyboard() {
         switch (operation) {
             case '+':
                 clear();
-                setResult(parseInt(secondNumber) + parseInt(firstNumber))
+                setResult(parseFloat(secondNumber) + parseFloat(firstNumber))
                 break;
             case '-':
                 clear();
@@ -52,12 +62,22 @@ export default function MyKeyboard() {
                 clear();
                 setResult(parseInt(secondNumber) / parseInt(firstNumber))
                 break;
-
             default:
                 clear();
                 setResult(0);
                 break;
         }
+
+    }
+
+    const printSquareRoot = () => {
+        clear();
+        setResult(Math.sqrt(parseInt(firstNumber)))
+    }
+
+    const printSquare = () => {
+        clear();
+        setResult(Math.pow(parseInt(firstNumber), 2))
     }
 
     const firstNumberDisplay = () => {
@@ -83,12 +103,12 @@ export default function MyKeyboard() {
         // The <> and </> symbols are called React fragments, and they are used to group multiple React elements together without creating an additional DOM node.
 
 
-        <View style={[Styles.viewBottom, { borderColor: myColors.blue, borderWidth: 1 }]}>
+        <View style={Styles.viewBottom}>
 
             <View style={{ borderColor: myColors.blue, borderWidth: 1 }}>
 
                 <View style={{ height: 120, width: '90%', justifyContent: 'flex-end', alignSelf: 'center' }}>
-                    <Text style={[Styles.screenSecondNumber, { borderColor: myColors.blue, borderWidth: 1 }]}>
+                    <Text style={Styles.screenSecondNumber}>
                         {secondNumber}
                         <Text style={{ color: 'purple', fontSize: 50, fontWeight: '500', }}>{operation}</Text>
                     </Text>
@@ -98,8 +118,8 @@ export default function MyKeyboard() {
 
             <View style={Styles.row}>
                 <Button title='C' isGray onPress={clear} />
-                <Button title='+/-' isGray onPress={() => handleOperationPress('+/-')} />
-                <Button title='%' isGray onPress={() => handleOperationPress('%')} />
+                <Button title='x²' isGray onPress={() => printSquare()} />
+                <Button title='√' isGray onPress={() => printSquareRoot()} />
                 <Button title='/' isGray onPress={() => handleOperationPress('/')} />
             </View>
 
@@ -125,11 +145,11 @@ export default function MyKeyboard() {
             </View>
 
             <View style={Styles.row}>
-                <Button title='.' onPress={() => handleNumberPress('.')} />
+                <Button title='.' onPress={() => handleDotPress()} />
                 <Button title='0' onPress={() => handleNumberPress('0')} />
                 <Button title='⌫' onPress={() => setFirstNumber(firstNumber.slice(0, -1))} />
                 <Button title='=' isBlue onPress={() => getResult()} />
             </View>
-        </View>
+        </View >
     )
 }
