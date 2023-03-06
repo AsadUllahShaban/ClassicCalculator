@@ -83,14 +83,17 @@ export default function MyKeyboard() {
         // The <> and </> symbols are called React fragments, and they are used to group multiple React elements together without creating an additional DOM node.
 
 
-        <View style={Styles.viewBottom}>
+        <View style={[Styles.viewBottom, { borderColor: myColors.blue, borderWidth: 1 }]}>
 
-            <View style={{ height: 120, width: '90%', justifyContent: 'flex-end', alignSelf: 'center' }}>
-                <Text style={Styles.screenSecondNumber}>
-                    {secondNumber}
-                    <Text style={{ color: 'purple', fontSize: 50, fontWeight: '500', }}>{operation}</Text>
-                </Text>
-                {firstNumberDisplay()}
+            <View style={{ borderColor: myColors.blue, borderWidth: 1 }}>
+
+                <View style={{ height: 120, width: '90%', justifyContent: 'flex-end', alignSelf: 'center' }}>
+                    <Text style={[Styles.screenSecondNumber, { borderColor: myColors.blue, borderWidth: 1 }]}>
+                        {secondNumber}
+                        <Text style={{ color: 'purple', fontSize: 50, fontWeight: '500', }}>{operation}</Text>
+                    </Text>
+                    {firstNumberDisplay()}
+                </View>
             </View>
 
             <View style={Styles.row}>
