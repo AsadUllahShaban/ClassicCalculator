@@ -1,0 +1,8 @@
+app built using reactnative cli
+using yarn dependecy lock
+theme light & Dark
+responsive app
+
+android>app>src>main>AndroidManifest.xml
+In AndroidManifest.xml under <activity
+android:screenOrientation="potrait/landscape"
